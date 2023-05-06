@@ -43,4 +43,4 @@ npm run dev
     - available query parameters:
       - page
       - limit
-  - `/v1/pokemon:id`
+  - `/v1/pokemon/:id`
