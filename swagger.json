@@ -1,0 +1,262 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Pokemon REST API",
+    "description": "REST API adapter for Pokemon GraphQL API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "Pokemon",
+      "description": "API for pokemons"
+    }
+  ],
+  "paths": {
+    "/pokemon": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Page limiter"
+          }
+        ],
+        "tags": ["Pokemon"],
+        "summary": "Get all pokemons",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Pokemons"
+            }
+          }
+        }
+      }
+    },
+    "/pokemon/:id": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Pokemon's id"
+          }
+        ],
+        "tags": ["Pokemon"],
+        "summary": "Get details of a pokemon",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PokemonDetails"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PokemonDetails": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "classification": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "object",
+          "properties": {
+            "minimum": {
+              "type": "string"
+            },
+            "maximum": {
+              "type": "string"
+            }
+          }
+        },
+        "height": {
+          "type": "object",
+          "properties": {
+            "minimum": {
+              "type": "string"
+            },
+            "maximum": {
+              "type": "string"
+            }
+          }
+        },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attacks": {
+          "type": "object",
+          "properties": {
+            "fast": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "damage": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            "special": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "damage": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "resistant": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fleeRate": {
+          "type": "number",
+          "format": "double"
+        },
+        "maxCP": {
+          "type": "integer"
+        },
+        "maxHP": {
+          "type": "integer"
+        },
+        "weaknesses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evolutionRequirements": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "amount": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "Pokemon": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "classification": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "object",
+          "properties": {
+            "minimum": {
+              "type": "string"
+            },
+            "maximum": {
+              "type": "string"
+            }
+          }
+        },
+        "height": {
+          "type": "object",
+          "properties": {
+            "minimum": {
+              "type": "string"
+            },
+            "maximum": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Pokemons": {
+      "properties": {
+        "total": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "result": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitons/Pokemon"
+          }
+        }
+      }
+    }
+  },
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"]
+}
